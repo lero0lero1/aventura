@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FoodTruck Assassino</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Courier New', monospace;
+        }
+        
+        body {
+            background-color: #0a0a0a;
+            color: #ff6b6b;
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-image: radial-gradient(#1a0000 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            padding: 30px 0;
+            border-bottom: 2px solid #ff0000;
+            margin-bottom: 30px;
+            position: relative;
+        }
+        
+        h1 {
+            font-size: 3.5rem;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            text-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000;
+            animation: pulsate 2s infinite;
+        }
+        
+        @keyframes pulsate {
+            0% { text-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000; }
+            50% { text-shadow: 0 0 15px #ff0000, 0 0 30px #ff0000, 0 0 40px #ff5252; }
+            100% { text-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000; }
+        }
+        
+        .story-content {
+            background-color: rgba(20, 0, 0, 0.8);
+            padding: 30px;
+            border-radius: 10px;
+            border: 1px solid #ff0000;
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.3);
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .story-content::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #ff0000, transparent);
+            animation: scanline 3s linear infinite;
+        }
+        
+        @keyframes scanline {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(1000%); }
+        }
+        
+        p {
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+        }
+        
+        .hidden-content {
+            display: none;
+            padding: 15px;
+            margin: 15px 0;
+            background-color: rgba(60, 0, 0, 0.7);
+            border-left: 3px solid #ff0000;
+        }
+        
+        .reveal-btn {
+            background-color: #300000;
+            color: #ff6b6b;
+            border: 1px solid #ff0000;
+            padding: 10px 15px;
+            margin: 10px 0;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: inherit;
+            font-size: 1rem;
+            border-radius: 4px;
+        }
+        
+        .reveal-btn:hover {
+            background-color: #500000;
+            box-shadow: 0 0 10px #ff0000;
+        }
+        
+        .foodtruck-image {
+            width: 100%;
+            height: 300px;
+            background-color: #200;
+            margin: 20px 0;
+            position: relative;
+            overflow: hidden;
+            border: 2px solid #ff0000;
+        }
+        
+        .foodtruck-image::before {
+            content: "FOOD TRUCK";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 2rem;
+            color: #ff0000;
+            text-shadow: 0 0 10px #ff0000;
+            opacity: 0.7;
+        }
+        
+        .blood {
+            position: absolute;
+            background-color: #900;
+            width: 30px;
+            height: 60px;
+            border-radius: 50%;
+            transform: rotate(-30deg);
+            opacity: 0.8;
+        }
+        
+        .blood:nth-child(1) { top: 20%; left: 20%; }
+        .blood:nth-child(2) { top: 60%; left: 70%; }
+        .blood:nth-child(3) { top: 40%; left: 50%; }
+        
+        .menu {
+            margin: 30px 0;
+            padding: 20px;
+            background-color: rgba(40, 0, 0, 0.8);
+            border: 1px solid #ff0000;
+        }
+        
+        .menu h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #ff6b6b;
+            text-decoration: underline;
+        }
+        
+        .menu-item {
+            padding: 10px;
+            border-bottom: 1px dashed #ff0000;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .menu-item:hover {
+            background-color: rgba(80, 0, 0, 0.5);
+        }
+        
+        .menu-item:last-child {
+            border-bottom: none;
+        }
+        
+        .secret-message {
+            color: #ff0000;
+            font-size: 0.9rem;
+            margin-top: 10px;
+            display: none;
+            animation: glitch 1s infinite;
+        }
+        
+        @keyframes glitch {
+            0% { transform: translate(0); }
+            20% { transform: translate(-2px, 2px); }
+            40% { transform: translate(-2px, -2px); }
+            60% { transform: translate(2px, 2px); }
+            80% { transform: translate(2px, -2px); }
+            100% { transform: translate(0); }
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px;
+            border-top: 1px solid #ff0000;
+            margin-top: 30px;
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        .typewriter {
+            overflow: hidden;
+            border-right: 0.15em solid #ff0000;
+            white-space: nowrap;
+            margin: 0 auto;
+            letter-spacing: 0.15em;
+            animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
+        }
+        
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+        
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: #ff0000 }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>FoodTruck Assassino</h1>
+        </header>
+        
+        <div class="story-content">
+            <p class="typewriter">Era uma noite fria de outono quando o FoodTruck apareceu na esquina da Rua das Sombras...</p>
+            
+            <div class="foodtruck-image">
+                <div class="blood"></div>
+                <div class="blood"></div>
+                <div class="blood"></div>
+            </div>
+            
+            <p>Ninguém sabia de onde ele veio, mas todas as noites aparecia no mesmo lugar. Seu dono, um homem alto de aparência sinistra, sempre vestindo um avental manchado, nunca falava com os clientes. Apenas assentia e preparava a "comida" especial.</p>
+            
+            <button class="reveal-btn" onclick="revealContent('content1')">► Ouvir o rumor</button>
+            <div id="content1" class="hidden-content">
+                <p>Dizem que aqueles que experimentam o "Especial da Casa" nunca mais são vistos. Alguns dizem que se tornam ingredientes para os pratos seguintes. Outros afirmam que o FoodTruck não serve comida, mas sim vingança.</p>
+            </div>
+            
+            <p>O cardápio era enigmático, com nomes sugestivos como "Hambúrguer de Desespero", "Batatas da Perdição" e o famoso "Milkshake do Esquecimento".</p>
+            
+            <div class="menu">
+                <h2>Cardápio do FoodTruck</h2>
+                <div class="menu-item" onclick="showMessage(1)">Hambúrguer de Desespero - R$ 15,00</div>
+                <div class="menu-item" onclick="showMessage(2)">Batatas da Perdição - R$ 12,00</div>
+                <div class="menu-item" onclick="showMessage(3)">Milkshake do Esquecimento - R$ 18,00</div>
+                <div class="menu-item" onclick="showMessage(4)">Especial da Casa - R$ ???</div>
+                
+                <div id="secret-message" class="secret-message">
+                    CUIDADO: Este não é um food truck comum. Afaste-se enquanto ainda pode!
+                </div>
+            </div>
+            
+            <button class="reveal-btn" onclick="revealContent('content2')">► Investigar o veículo</button>
+            <div id="content2" class="hidden-content">
+                <p>Você se aproxima sorrateiramente do food truck após a meia-noite. Não há ninguém lá, mas a porta traseira está entreaberta. Lá dentro, você vê ganchos de metal, serras manchadas de vermelho e freezers que emitem um ruído estranho. De repente, ouve passos se aproximando...</p>
+            </div>
+            
+            <p>Diz a lenda que o FoodTruck Assassino vagueia pelas estradas à noite, sempre procurando por novos "ingredientes". Aqueles que são muito curiosos ou famintos demais podem se tornar parte do cardápio permanente.</p>
+            
+            <button class="reveal-btn" onclick="revealContent('content3')">[SISTEMA] Acessar logs internos</button>
+            <div id="content3" class="hidden-content">
+                <p>> INICIANDO SISTEMA...<br>
+                > CARREGANDO REGISTROS...<br>
+                > ENCONTRADO: ÚLTIMO PEDIDO - "ESPECIAL DA CASA"<br>
+                > CLIENTE: JAKOB MÜLLER - STATUS: [INDISPONÍVEL]<br>
+                > INGREDIENTES UTILIZADOS: [DADOS CORROMPIDOS]<br>
+                > AVISO: NÃO HÁ MAIS ESPAÇO NO FREEZER. NECESSÁRIO "LIMPEZA"<br>
+                > PRÓXIMA PARADA: SUA CIDADE</p>
+            </div>
+        </div>
+        
+        <footer>
+            Esta é apenas uma história. Esperamos que não encontre o FoodTruck Assassino em sua cidade...
+        </footer>
+    </div>
+
+    <script>
+        function revealContent(id) {
+            const content = document.getElementById(id);
+            if (content.style.display === "block") {
+                content.style.display = "none";
+            } else {
+                content.style.display = "block";
+            }
+        }
+        
+        function showMessage(item) {
+            const message = document.getElementById("secret-message");
+            message.style.display = "block";
+            
+            if (item === 4) {
+                message.textContent = "ERRO: Nível de acesso insuficiente. Este item não está disponível para seu tipo.";
+            } else {
+                message.textContent = "AVISO: Este item contém ingredientes que podem alterar permanentemente sua existência.";
+            }
+            
+            setTimeout(() => {
+                message.style.display = "none";
+            }, 5000);
+        }
+        
+        // Efeito de digitação para todos os elementos com classe typewriter
+        document.addEventListener('DOMContentLoaded', function() {
+            const typewriterElements = document.querySelectorAll('.typewriter');
+            typewriterElements.forEach(element => {
+                const text = element.textContent;
+                element.textContent = '';
+                element.style.width = '0';
+                
+                setTimeout(() => {
+                    let i = 0;
+                    const typing = setInterval(() => {
+                        if (i < text.length) {
+                            element.textContent += text.charAt(i);
+                            i++;
+                        } else {
+                            clearInterval(typing);
+                            element.style.borderRight = 'none';
+                        }
+                    }, 50);
+                }, 1000);
+            });
+        });
+    </script>
+</body>
+</html>
